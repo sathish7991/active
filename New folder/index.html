@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Form</title>
+    <style>
+        body {
+    
+ background: linear-gradient(#a6d4f5 , white 50%);
+     color: black;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px;
+            background-color: #f7f9fa;
+            border: 2px solid grey;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffff00;
+        }
+
+        .mandatory {
+            color: red;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-field label {
+            display: block;
+            
+        }
+        .centered-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input {
+    font-family: Helvetica;
+}
+
+        .form-field input[type="text"],
+        .form-field input[type="number"],
+        .form-field input[type="email"],
+        .form-field input[type="file"],
+        .form-field textarea {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #white;
+        }
+
+        .form-field input[type="text"]:focus,
+        .form-field input[type="email"]:focus,
+        .form-field textarea:focus {
+            background-color: #fff;
+        }
+
+        .declaration {
+            text-align: justify;
+            color: black;
+             
+            font-size: 16px;
+        }
+
+        .submit-button {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            font-family: Helvetica;
+            border: 5px;
+            padding: 20px 30px;
+            border-radius: 5px;
+            display: block;
+    margin: 0 auto;
+    text-align: center;
+            cursor: pointer;
+        }
+        ::placeholder {
+    font-family: Helvetica;
+}
+#timestamp {
+    font-family: Helvetica;
+    font-size: 15px;
+    background-color: #white;
+    padding: 10px;
+    max-width: 200px;
+ border: 0.5px solid #a6d4f5;
+    color:black;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.label-signature {
+    margin-bottom: 10px;
+}
+#file-input {
+    border-radius: 5px;
+    background-color: white
+    color: black; /* Yellow text */
+    padding: 10px 10px;
+    max-width: 250px;
+    font-family: Helvetica;
+    cursor: pointer;
+}
+#clear-signature {
+    background-color:#white;
+    color: black;
+    font-family: Helvetica;
+    padding: 1px 5px; 
+    border-radius: 5px
+    cursor: pointer;
+}
+
+
+#first-name,
+#last-name,
+#Phone,
+#email,
+#address,
+#id-details,
+#file-input,
+#Price,
+#Vehicle-details {
+    border: 0.5px solid #a6d4f5; /* Add a black border */
+}
+.center-label {
+    text-align: center;
+}
+        .submit-button:hover {
+          background-color: #111b5c;
+          color: yellow;
+            animation: pulse 0.5s infinite;
+        }
+.payment-method-options {
+    display: flex;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center; /* Center-align radio button and label */
+    margin-bottom: 10px; /* Add space between radio button groups */
+}
+
+.payment-method-options input[type="radio"] {
+    margin-right: 10px; /* Add spacing between radio buttons */
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px; /* Add space between radio button and label */
+}
+.bank-account-input {
+            display: flex;
+            align-items: center;
+        }
+.bank-account-block {
+            width: 2rem;
+            height: 2rem;
+            text-align: center;
+            font-size: 1 rem;
+            border: 1px solid #a6d4f5;
+            border-radius: 5px;
+            margin-right: 0.2rem;
+display: inline-block; /* Make blocks inline-block elements */
+    vertical-align: middle; /* Vertically center the content */
+    line-height: 2rem;
+        }
+.space-above-field {
+    height: 20px; /* Adjust the height to control the space */
+}
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+h1 {
+    border-top: 1px solid #000; /* Adjust the color and thickness as needed */
+    padding-top: 10px; /* Add space above the heading as needed */
+    text-align: center; /* Center the text if it's not centered already */
+    color: black; /* Keep the existing text color */
+}
+
+        }
+    </style>
+</head>
+<body>
+<form action="process_form.php" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <img src="ACTIVE LOGO.png" alt="ACTIVE LOGO" width="300">
+        <p style="margin-top: 10px; font-family:Verdana;">
+
+12 ALFRED STREET, ONEHUNGA, AUCKLAND 1061
+</p>
+        <h1 style="border-top: 1px solid #000; padding-top: 10px; text-align: center; color: black;">Purchase Form</h1>
+        <form id="purchase-form" onsubmit="return validateSignature()">
+        <form>
+
+            <div class="form-field">
+                <label for="first-name">First Name <span class="mandatory">*</span></label>
+                <input type="text" id="first-name" placeholder="Enter your First name here" required="">
+            </div>
+
+            <div class="form-field">
+                <label for="last-name">Last Name <span class="mandatory">*</span></label>
+                <input type="text" id="last-name" placeholder="Enter your Last name here" required="">
+            </div>
+
+            <div class="form-field">
+                <label for="Phone">Phone <span class="mandatory">*</span></label>
+                <input type="text" id="Phone" placeholder="Enter your phone number" required="">
+            </div>
+
+            <div class="form-field">
+                <label for="email">Email Address <span class="mandatory">*</span></label>
+                <input type="email" id="email" placeholder="Enter your email id here" required="">
+            </div>
+
+            <div class="form-field">
+                <label for="address">Address<span class="mandatory">*</span> </label>
+                <input type="text" id="address" placeholder="Street /Suburban/ Postal code"  required="">
+            </div>
+
+            <div class="form-field">
+                <label for="id-details">ID Details <span class="mandatory">*</span> </label>
+                <input type="text" id="id-details" placeholder="License number or Passport number"  required="">
+            </div>
+
+            <div class="form-field">
+        <label for="file-input">Upload your ID:<span class="mandatory">*</span></label>
+        <input type="file" id="file-input" name="files" multiple required>
+    </div>
+<div class="form-field">
+<div class="space-above-field"></div>
+                <label for="Vehicle-details">Vehicle details <span class="mandatory">*</span> </label>
+                <input type="text" id="Vehicle-details" placeholder="License plate number or Make /Model /Year"  required="">
+            </div>
+          <div class="form-field">
+                <label for="Person on-site">Person on-site <span class="mandatory">*</span> </label>
+                <input type="text" id="Person on-site" placeholder="Name of the person who is on-site" required="" >
+            </div>
+            <div class="form-field">
+                <label for="Price">Price <span class="mandatory">*</span> </label>
+                <input type="text" id="Price" placeholder="e.g. 500" step="1" required>
+            </div>
+
+
+<div class="form-field">
+            <label>Payment Method <span class="mandatory">*</span></label>
+            <div class="payment-method-options">
+                <div class="payment-option">
+                    <input type="radio" id="payment-cash" name="payment-method" value="Cash" required>
+                    <label for="payment-cash">Cash</label>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" id="payment-bank-transfer" name="payment-method" value="Bank Transfer" required>
+                    <label for="payment-bank-transfer">Bank Transfer</label>
+                </div>
+            </div>
+        </div>
+<div class="bank-account-input">
+    <label for="bank-account">Account Number (if bank transfer is chosen) </label>
+    <div class="bank-account-block" contenteditable="true" id="block-1"></div>
+    <div class="bank-account-block" contenteditable="true" id="block-2"></div>
+    <div class="dash-block"> - </div>
+    <div class="bank-account-block" contenteditable="true" id="block-3"></div>
+    <div class="bank-account-block" contenteditable="true" id="block-4"></div>
+    <div class="bank-account-block" contenteditable="true" id="block-5"></div>
+    <div class="bank-account-block" contenteditable="true" id="block-6"></div>
+    <div class="dash-block">-</div>
+    <div class="bank-account-block" contenteditable="true" id="block-7"></div>
+    <div class="bank-account-block" contenteditable="true" id="block-8"></div>
+ <div class="bank-account-block" contenteditable="true" id="block-9"></div>
+ <div class="bank-account-block" contenteditable="true" id="block-10"></div>
+ <div class="bank-account-block" contenteditable="true" id="block-11"></div>
+ <div class="bank-account-block" contenteditable="true" id="block-12"></div>
+ <div class="bank-account-block" contenteditable="true" id="block-13"></div>
+<div class="dash-block">-</div>
+ <div class="bank-account-block" contenteditable="true" id="block-14"></div>
+ <div class="bank-account-block" contenteditable="true" id="block-15"></div>
+</div>
+                
+
+            <div class="form-field">
+<div class="space-above-field"></div>
+                <label class="declaration"><span class="mandatory">*</span>
+                    <input type="checkbox" required="">
+                    By submitting this form I confirm the receipt of payment from ACTIVE 4x4, this being the full and final payment. I also confirm that I am the legal owner and/or fully authorized to sell this vehicle. There is no security or fines owing on the vehicle.
+                </label>
+                <div class="form-field">
+                  <div style="height: 20px;"></div>
+                <label class="label-signature" for="signature">Signature <span class="mandatory">*</span></label>
+                <canvas id="signature-canvas" width="500" height="150" style=" border: 0.5px solid #a6d4f5;background-color: white;"></canvas>
+                <button type="button" id="clear-signature" color: yellow;border-radius: 5px;">Clear Signature</button>
+                <input type="hidden" id="signature-data" name="signature" required="">
+            </div>
+
+            <div>
+              <div class="centered-field">
+             <label for="timestamp" class="center-label">Date / Time</label>
+            <input type="text" id="timestamp" name="timestamp" "font-family=Verdana" "><br><br>
+            </div>
+            </div>
+
+            <div class="form-field">
+                <button type="submit" class="submit-button">SUBMIT NOW</button>
+            </div>
+        </form>
+        
+    </div>
+
+    <script>
+        // JavaScript for handling the signature functionality
+        const canvas = document.getElementById('signature-canvas');
+        const clearButton = document.getElementById('clear-signature');
+        const signatureDataInput = document.getElementById('signature-data');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let prevX = 0;
+        let prevY = 0;
+
+        // Event listeners for mouse and touch events
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            prevX = e.clientX - canvas.getBoundingClientRect().left;
+            prevY = e.clientY - canvas.getBoundingClientRect().top;
+        });
+
+        canvas.addEventListener('mousemove', draw);
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            drawing = true;
+            const touch = e.touches[0];
+            prevX = touch.clientX - canvas.getBoundingClientRect().left;
+            prevY = touch.clientY - canvas.getBoundingClientRect().top;
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (!drawing) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            draw({ clientX: touch.clientX, clientY: touch.clientY });
+        });
+
+        canvas.addEventListener('touchend', () => {
+            drawing = false;
+        });
+
+        clearButton.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureDataInput.value = '';
+        });
+
+        function draw(e) {
+            if (!drawing) return;
+
+            const x = e.clientX - canvas.getBoundingClientRect().left;
+            const y = e.clientY - canvas.getBoundingClientRect().top;
+
+            ctx.beginPath();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.closePath();
+
+            prevX = x;
+            prevY = y;
+
+            updateSignatureData();
+        }
+
+        function updateSignatureData() {
+            const signatureDataURL = canvas.toDataURL();
+            signatureDataInput.value = signatureDataURL;
+        }
+    </script>
+    <script>
+        // JavaScript for handling the signature functionality ...
+        
+        function validateSignature() {
+            const signatureData = document.getElementById('signature-data').value;
+            
+            if (signatureData === '') {
+                alert('Please provide your signature.');
+                return false; // Prevent form submission
+            }
+            
+            // You can add additional validation here if needed
+            
+            return true; // Allow form submission
+        }
+    </script>
+<script>document.getElementById('Price').addEventListener('input', function () {
+    this.value = this.value.replace(/[^0-9]/g, ''); // Allow only numbers
+});</script>
+ </script>
+<script>document.getElementById('Phone').addEventListener('input', function () {
+    this.value = this.value.replace(/[^0-9]/g, ''); // Allow only numbers
+});</script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+    const timestampInput = document.getElementById('timestamp');
+    
+    function updateTimestamp() {
+        const now = new Date();
+        const day = now.getDate().toString().padStart(2, '0');
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        
+        const formattedTimestamp = `${day}-${month}-${year}, ${hours}:${minutes}:${seconds}`;
+        timestampInput.value = formattedTimestamp;
+    }
+    
+    // Update the timestamp initially and then every second
+    updateTimestamp();
+    setInterval(updateTimestamp, 1000);
+});
+
+            </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to handle input in bank account blocks
+    function handleBlockInput(event, currentBlock, nextBlock) {
+        const input = event.data; // Get the input character
+        if (input && input.match(/\d/)) {
+            // If the input is a digit, proceed
+            currentBlock.innerText = input; // Set the block content to the input
+            if (nextBlock && nextBlock.getAttribute('contenteditable') === 'true') {
+                nextBlock.focus(); // Move focus to the next block
+            }
+        } else {
+            // If the input is not a digit, prevent it
+            event.preventDefault();
+        }
+    }
+
+    // Get all bank account block elements and dash blocks
+    const blocks = document.querySelectorAll('.bank-account-block');
+
+    // Add input event listeners to each bank account block
+    for (let i = 0; i < blocks.length; i++) {
+        const currentBlock = blocks[i];
+        const nextBlock = blocks[i + 1];
+        currentBlock.addEventListener('input', (event) => {
+            handleBlockInput(event, currentBlock, nextBlock);
+        });
+    }
+
+    // Add input event listeners to dash blocks to prevent user input
+    const dashBlocks = document.querySelectorAll('.dash-block');
+    for (let i = 0; i < dashBlocks.length; i++) {
+        dashBlocks[i].addEventListener('input', (event) => {
+            event.preventDefault();
+        });
+    }
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const blocks = document.querySelectorAll('.bank-account-block');
+
+        blocks.forEach((block, index) => {
+            block.addEventListener('input', function(event) {
+                const input = event.data;
+                if (input && !/^\d$/.test(input)) {
+                    block.textContent = ''; // Clear the block if the input is not a digit
+                }
+                if (index < blocks.length - 1 && input) {
+                    blocks[index + 1].focus(); // Move focus to the next block if available
+                }
+            });
+        });
+
+        const dashBlocks = document.querySelectorAll('.dash-block');
+
+        dashBlocks.forEach(dashBlock => {
+            dashBlock.addEventListener('input', function(event) {
+                event.preventDefault(); // Prevent user input in dash blocks
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentOptions = document.querySelectorAll('input[name="payment-method"]');
+        const bankAccountInput = document.querySelector('.bank-account-input');
+
+        function toggleAccountNumberRequired() {
+            const selectedOption = document.querySelector('input[name="payment-method"]:checked');
+            const isBankTransferSelected = selectedOption.value === 'Bank Transfer';
+            const accountNumberInput = bankAccountInput.querySelector('.bank-account-block');
+
+            // Toggle the required attribute based on the selected payment method
+            accountNumberInput.required = isBankTransferSelected;
+        }
+
+        // Add a change event listener to the payment options
+        paymentOptions.forEach(option => {
+            option.addEventListener('change', toggleAccountNumberRequired);
+        });
+
+        // Initial call to set the required attribute based on the default selected option
+        toggleAccountNumberRequired();
+    });
+</script>
+                        
+                       
+
+            
+        
+</form>
+    
+</body>
+</html>
